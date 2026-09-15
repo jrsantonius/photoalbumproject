@@ -28,12 +28,10 @@ Salin `.env.example` menjadi `.env` lalu isi:
 
 | Key | Keterangan |
 |---|---|
-| `MAYAR_API_KEY` | API key Mayar. Selama masih `your_mayar_api_key_here`, pesanan tetap tersimpan tapi tanpa link pembayaran. |
-| `MAYAR_ENV` | `sandbox` (api.mayar.io) atau `production` (api.mayar.id) |
 | `MAX_PHOTOS` | Batas foto per album (default 15) |
-| `MAX_FILE_SIZE_MB` | Batas ukuran per foto (default 10) |
+| `MAX_FILE_SIZE_MB` | Batas ukuran per foto (4MB di Vercel) |
 
-Webhook Mayar diarahkan ke `https://domain-anda/api/webhook.php`.
+Pembayaran online dinonaktifkan sementara. Pesanan dicatat dan ditindaklanjuti manual melalui WhatsApp.
 
 ## Endpoint
 
@@ -41,9 +39,9 @@ Webhook Mayar diarahkan ke `https://domain-anda/api/webhook.php`.
 |---|---|---|
 | `api/upload.php` | POST | Upload foto (multipart, header `X-Session-Id`) |
 | `api/delete-photo.php` | POST | Hapus satu foto |
-| `api/orders.php` | POST | Buat pesanan + invoice Mayar |
+| `api/orders.php` | POST | Buat pesanan manual |
 | `api/order-status.php` | GET | Status pesanan (`?orderId=TIS-xxx`) |
-| `api/webhook.php` | POST | Callback status pembayaran dari Mayar |
+| `api/webhook.php` | POST | Endpoint legacy, tidak digunakan sementara |
 | `api/pricing.php` | GET | Tabel harga |
 
 ## Penyimpanan

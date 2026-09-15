@@ -90,13 +90,6 @@ $shipping['cost'] = $pricing['shippingCost'];
 $orderId   = 'TIS-' . time();
 $createdAt = date('c');
 
-$itemDescription = sprintf(
-    'Album %s %s %s',
-    $size,
-    COVER_LABELS[$cover]['label'],
-    PAPER_LABELS[$paper]['label']
-);
-
 $order = [
     'orderId'      => $orderId,
     'status'       => 'pending',
@@ -117,10 +110,9 @@ $order = [
     'shipping'     => $shipping,
     'pricing'      => $pricing,
     'payment'      => [
-        'provider'    => 'mayar',
-        'environment' => MAYAR_ENV,
+        'provider'    => null,
+        'status'      => 'not_required',
         'paymentLink' => null,
-        'invoiceId'   => null,
     ],
     'webhookLogs'  => [],
 ];
@@ -129,60 +121,10 @@ if (!save_order($orderId, $order)) {
     response_json(['success' => false, 'message' => 'Gagal menyimpan pesanan di server.'], 500);
 }
 
-/* ---------------------- Terbitkan invoice Mayar ------------------- */
-
-$payload = [
-    'name'        => $order['customer']['name'],
-    'email'       => $order['customer']['email'],
-    'mobile'      => $order['customer']['phone'],
-    'description' => 'Album Foto ' . $albumType . ' - Order #' . $orderId,
-    'expiredAt'   => gmdate('c', time() + 86400),
-    'items'       => [
-        [
-            'quantity'    => $copies,
-            'rate'        => $pricing['pricePerCopy'],
-            'description' => $itemDescription,
-        ],
-        [
-            'quantity'    => 1,
-            'rate'        => $pricing['shippingCost'],
-            'description' => 'Pengiriman via ' . $shipping['courierName'],
-        ],
-    ],
-    'extraData'   => ['orderId' => $orderId],
-];
-
-$mayar       = send_to_mayar($payload);
-$paymentLink = null;
-$message     = 'Pesanan berhasil dibuat.';
-
-if ($mayar['ok']) {
-    $data        = $mayar['data']['data'] ?? [];
-    $paymentLink = $data['link'] ?? null;
-    $invoiceId   = $data['id'] ?? null;
-
-    $order['payment']['paymentLink'] = $paymentLink;
-    $order['payment']['invoiceId']   = $invoiceId;
-    $order['payment']['raw']         = $data;
-    $order['updatedAt']              = date('c');
-    save_order($orderId, $order);
-
-    $message = $paymentLink
-        ? 'Pesanan berhasil dibuat. Silakan lanjutkan pembayaran.'
-        : 'Pesanan berhasil dibuat, namun link pembayaran belum tersedia.';
-} else {
-    /* Mayar gagal — order tetap tersimpan agar bisa ditindaklanjuti manual */
-    $order['payment']['error'] = $mayar['error'];
-    $order['updatedAt']        = date('c');
-    save_order($orderId, $order);
-
-    $message = 'Pesanan berhasil dicatat, namun link pembayaran belum bisa dibuat. Tim kami akan menghubungi Anda via WhatsApp.';
-}
-
 response_json([
     'success'     => true,
     'orderId'     => $orderId,
-    'paymentLink' => $paymentLink,
+    'paymentLink' => null,
     'pricing'     => $pricing,
-    'message'     => $message,
+    'message'     => 'Pesanan berhasil dicatat. Tim kami akan menghubungi Anda melalui WhatsApp.',
 ]);

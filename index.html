@@ -1161,8 +1161,8 @@ h1{font-size:clamp(36px,5vw,58px)}
   <section class="step" data-s="8">
     <div class="head anim">
       <div class="eyebrow">Langkah 8</div>
-      <h1>Ringkasan &amp; pembayaran</h1>
-      <p class="sub">Periksa kembali seluruh detail pesanan Anda sebelum melanjutkan ke halaman pembayaran.</p>
+      <h1>Ringkasan pesanan</h1>
+      <p class="sub">Periksa kembali seluruh detail sebelum mengirim pesanan ke studio.</p>
     </div>
 
     <div class="shell anim">
@@ -1190,10 +1190,10 @@ h1{font-size:clamp(36px,5vw,58px)}
           <div id="sumPrice"></div>
           <button class="btn btn-primary btn-lg btn-block" id="pay" type="button" style="margin-top:18px">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
-            Bayar Sekarang
+            Buat Pesanan
           </button>
           <p style="font-size:11.5px;color:var(--muted);text-align:center;margin-top:11px;line-height:1.5">
-            Pembayaran diproses aman melalui Mayar.<br>Link berlaku 24 jam.
+            Pembayaran belum diperlukan.<br>Tim studio akan menghubungi Anda lewat WhatsApp.
           </p>
         </div>
       </aside>
@@ -1207,7 +1207,7 @@ h1{font-size:clamp(36px,5vw,58px)}
         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
       </div>
       <h2>Pesanan berhasil dibuat</h2>
-      <p id="doneMsg">Terima kasih. Selesaikan pembayaran agar album Anda segera masuk antrean produksi.</p>
+      <p id="doneMsg">Terima kasih. Tim studio akan menghubungi Anda untuk langkah selanjutnya.</p>
       <div class="oid">
         <span id="oidText">TIS-000000</span>
         <button type="button" id="copyId" aria-label="Salin order ID" title="Salin order ID">
@@ -1415,6 +1415,7 @@ const $  = (s) => document.querySelector(s);
 const $$ = (s) => Array.from(document.querySelectorAll(s));
 
 const rp = (n) => 'Rp ' + Number(n || 0).toLocaleString('id-ID');
+const api = (name) => 'api/' + name + ((location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? '.php' : '');
 
 function esc(v){
   return String(v == null ? '' : v).replace(/[&<>"']/g, (c) =>
@@ -1545,24 +1546,30 @@ function send(list){
   syncCount();
   renderPhotos();
 
-  const form = new FormData();
-  good.forEach((f) => form.append('photos[]', f));
-  const headers = {};
-  if (S.sessionId) headers['X-Session-Id'] = S.sessionId;
-
-  fetch('api/upload.php', { method:'POST', body:form, headers:headers })
-    .then((r) => r.json())
-    .then((d) => {
+  let activeSession = S.sessionId;
+  const saved = [];
+  const failures = [];
+  good.reduce((chain, file) => chain.then(() => {
+    const form = new FormData();
+    form.append('photos[]', file);
+    const headers = {};
+    if (activeSession) headers['X-Session-Id'] = activeSession;
+    return fetch(api('upload'), { method:'POST', body:form, headers:headers })
+      .then((r) => r.json().catch(() => ({ success:false, message:'Respons server tidak valid.' })))
+      .then((d) => {
+        if (!d.success){ failures.push(d.message || file.name + ' gagal diunggah.'); return; }
+        activeSession = d.sessionId;
+        saved.push(...d.files);
+      });
+  }), Promise.resolve()).then(() => {
       temps.forEach((t) => URL.revokeObjectURL(t.url));
       S.photos = S.photos.filter((p) => !temps.includes(p));
-
-      if (!d.success){ toast(d.message || 'Upload gagal.', 'error'); syncCount(); renderPhotos(); return; }
-
-      S.sessionId = d.sessionId;
-      S.photos = S.photos.concat(d.files);
+      if (activeSession) S.sessionId = activeSession;
+      S.photos = S.photos.concat(saved);
       syncCount();
       renderPhotos();
-      toast(d.files.length + ' foto berhasil diunggah.', 'success');
+      if (saved.length) toast(saved.length + ' foto berhasil diunggah.', 'success');
+      if (failures.length) toast(failures[0], 'error');
     })
     .catch(() => {
       temps.forEach((t) => URL.revokeObjectURL(t.url));
@@ -1659,7 +1666,7 @@ function del(filename){
   if (!p) return;
 
   busy('Menghapus foto…');
-  fetch('api/delete-photo.php', {
+  fetch(api('delete-photo'), {
     method:'POST',
     headers:{ 'Content-Type':'application/json' },
     body:JSON.stringify({ sessionId:S.sessionId, filename:filename })
@@ -1680,7 +1687,7 @@ function clearAll(){
   if (!S.photos.length) return;
   const all = S.photos.slice();
   busy('Menghapus semua foto…');
-  Promise.all(all.map((p) => fetch('api/delete-photo.php', {
+  Promise.all(all.map((p) => fetch(api('delete-photo'), {
     method:'POST',
     headers:{ 'Content-Type':'application/json' },
     body:JSON.stringify({ sessionId:S.sessionId, filename:p.filename })
@@ -2196,10 +2203,10 @@ function submit(){
     })
   };
 
-  busy('Membuat pesanan & link pembayaran…');
+  busy('Mencatat pesanan…');
   $('#pay').disabled = true;
 
-  fetch('api/orders.php', {
+  fetch(api('orders'), {
     method:'POST',
     headers:{ 'Content-Type':'application/json' },
     body:JSON.stringify(payload)
@@ -2214,7 +2221,6 @@ function submit(){
       renderDone(d);
       go(9);
       toast('Pesanan ' + d.orderId + ' berhasil dibuat.', 'success');
-      if (d.paymentLink) window.open(d.paymentLink, '_blank', 'noopener');
     })
     .catch(() => {
       idle();
@@ -2226,7 +2232,7 @@ function submit(){
 function renderDone(d){
   const t = d.pricing || {};
   $('#oidText').textContent = d.orderId;
-  $('#doneMsg').textContent = d.message || 'Selesaikan pembayaran agar album Anda segera masuk antrean produksi.';
+  $('#doneMsg').textContent = d.message || 'Tim studio akan menghubungi Anda untuk langkah selanjutnya.';
 
   const link = $('#payLink');
   if (d.paymentLink){ link.href = d.paymentLink; link.style.display = 'inline-flex'; }
@@ -2318,7 +2324,7 @@ function bind(){
 /* ─────────────── Init ─────────────── */
 
 function loadPricing(){
-  return fetch('api/pricing.php')
+  return fetch(api('pricing'))
     .then((r) => r.json())
     .then((d) => {
       if (!d || !d.success) return;

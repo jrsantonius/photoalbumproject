@@ -1,0 +1,8 @@
+api/*.php
+config.php
+.user.ini
+.env
+uploads/
+orders/
+PREVIEW PHOTOBOOK/
+SPK_*
