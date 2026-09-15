@@ -1,7 +1,7 @@
 <?php
 /**
  * POST JSON — buat pesanan baru, simpan ke orders/{orderId}.json,
- * lalu terbitkan invoice di Mayar.
+ * untuk pengujian lokal tanpa pembayaran online.
  */
 
 declare(strict_types=1);
@@ -33,11 +33,8 @@ if (isset($customer['email']) && trim((string) $customer['email']) !== ''
     $errors[] = 'Format email tidak valid.';
 }
 
-if (count($photos) === 0) {
-    $errors[] = 'Foto album belum dipilih.';
-}
-if (count($photos) > MAX_PHOTOS) {
-    $errors[] = 'Jumlah foto melebihi batas ' . MAX_PHOTOS . '.';
+if (!in_array(count($photos), [20, 40], true)) {
+    $errors[] = 'Paket album harus berisi tepat 20 atau 40 foto.';
 }
 if ($albumType === '') {
     $errors[] = 'Jenis album wajib dipilih.';
@@ -104,6 +101,7 @@ $order = [
     ],
     'albumType'    => $albumType,
     'template'     => $template,
+    'copywriting'  => is_array($body['copywriting'] ?? null) ? $body['copywriting'] : [],
     'photos'       => $photos,
     'photoCount'   => count($photos),
     'printOptions' => $printOptions,

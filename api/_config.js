@@ -1,4 +1,4 @@
-export const limits = { maxPhotos: 15, maxFileSizeMB: 4, maxCopies: 10 };
+export const limits = { minPhotos: 10, maxPhotos: 40, maxFileSizeMB: 4, maxCopies: 10 };
 
 export const sizes = [
   { code:'A5', label:'A5', description:'14.8 x 21 cm - ringkas & mudah dibawa', prices:{ softcover:150000, hardcover:200000 } },

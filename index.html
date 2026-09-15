@@ -848,6 +848,72 @@ h1{font-size:clamp(36px,5vw,58px)}
   .inspo-card:nth-child(3),.inspo-card:nth-child(4){display:none}
   .mprev{height:300px}
 }
+
+/* ═══════════════════ VERTICAL STORY / TYPEFORM FLOW ═══════════════════ */
+html{scroll-snap-type:y proximity;scroll-padding-top:132px}
+.wrap{padding-top:0;padding-bottom:120px}
+.step{
+  display:block!important;min-height:calc(100svh - 132px);padding:88px 0 96px;
+  scroll-snap-align:start;scroll-margin-top:132px;border-bottom:1px solid var(--line);
+  opacity:.42;transform:scale(.985);transition:opacity .5s var(--ease),transform .6s var(--ease);
+}
+.step.on{opacity:1;transform:none}
+.step:last-child{border-bottom:0}
+.step.on .anim{animation:rise .55s var(--ease) both}
+.rail-wrap{box-shadow:0 8px 25px rgba(60,43,27,.035)}
+.node{cursor:pointer}
+.actions{width:min(680px,calc(100% - 28px));left:50%;right:auto;bottom:16px;transform:translateX(-50%);border:1px solid var(--line-2);box-shadow:0 16px 45px rgba(52,38,25,.16)}
+.actions-in{padding:10px 12px}
+
+.chips{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.package-card{
+  height:auto;min-height:245px;padding:28px!important;display:flex!important;flex-direction:column;
+  align-items:flex-start!important;justify-content:flex-end!important;text-align:left;border:1px solid var(--line-2);
+  overflow:hidden;position:relative;
+}
+.package-card strong{font-family:Georgia,serif;font-size:32px;font-weight:400;margin:6px 0 0}
+.package-card>span:not(.package-book){font-size:12px;color:var(--muted);height:auto}
+.package-card small{font-size:11px;color:var(--faint);margin-top:9px;line-height:1.5}
+.package-name{text-transform:uppercase;letter-spacing:1.7px!important;color:var(--brand)!important;font-size:9px!important}
+.package-book{position:absolute;right:22px;top:28px;width:82px;height:92px;transform:rotateY(-22deg) rotateZ(4deg);transform-style:preserve-3d}
+.package-book i{position:absolute;inset:0;background:#B84735;border:1px solid rgba(71,35,25,.22);box-shadow:8px 10px 18px rgba(60,40,24,.13)}
+.package-book i:nth-child(2){transform:translate3d(-5px,5px,-5px);background:#E9DDC9}
+.package-book i:nth-child(3){transform:translate3d(-10px,10px,-10px);background:#F7F0E5}
+.package-card:nth-child(2) .package-book i:nth-child(2){transform:translate3d(-9px,9px,-9px)}
+.package-card:nth-child(2) .package-book i:nth-child(3){transform:translate3d(-18px,18px,-18px)}
+
+.mgrid{perspective:1400px}
+.mcard{transform-style:preserve-3d;transform-origin:50% 100%}
+.mcard:nth-child(1){transform:rotateY(8deg) rotateZ(-1deg)}
+.mcard:nth-child(2){transform:translateY(-12px)}
+.mcard:nth-child(3){transform:rotateY(-8deg) rotateZ(1deg)}
+.mcard:hover,.mcard.on{transform:translateY(-18px) rotateY(0) rotateZ(0) scale(1.025);z-index:3}
+.mcard::after{content:'';position:absolute;left:11px;right:-8px;bottom:-8px;height:12px;background:linear-gradient(#E6DDCE,#BFB29F);transform:skewX(-38deg);z-index:-1}
+
+.copy-studio{margin-top:42px;padding:32px;display:grid;grid-template-columns:.78fr 1.22fr;gap:40px;background:#E7DDCC}
+.copy-intro h2{font-family:Georgia,serif;font-size:32px;font-weight:400;line-height:1.05;margin:4px 0 12px}
+.copy-intro p{font-size:13px;color:var(--muted);margin-bottom:22px}
+.copy-fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.copy-hint{grid-column:1/-1;font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
+.page-copy{
+  position:absolute;z-index:5;left:7%;right:7%;bottom:5%;padding:5px 7px;
+  background:rgba(255,249,239,.84);backdrop-filter:blur(4px);font-family:Georgia,serif;
+  font-size:clamp(5px,.72vw,11px);font-style:italic;color:#5D493B;text-align:center;
+}
+.lay-bleed .page-copy{color:#FFF9EF;background:rgba(35,24,17,.52)}
+
+@media (max-width:820px){
+  .step{min-height:auto;padding:64px 0 76px;opacity:1;transform:none}
+  .copy-studio{grid-template-columns:1fr;gap:24px}
+}
+@media (max-width:600px){
+  html{scroll-padding-top:112px}
+  .step{scroll-margin-top:112px;padding:48px 0 66px}
+  .chips{grid-template-columns:1fr}
+  .package-card{min-height:210px}
+  .copy-fields{grid-template-columns:1fr}
+  .actions{bottom:8px}
+}
 </style>
 </head>
 <body>
@@ -900,7 +966,8 @@ h1{font-size:clamp(36px,5vw,58px)}
             Pilih Foto
           </button>
           <div class="meta-row">
-            <span class="tag">Maks <b id="maxN">15</b> foto</span>
+            <span class="tag">Minimum <b id="minN">10</b> foto</span>
+            <span class="tag">Maks <b id="maxN">40</b> foto</span>
             <span class="tag">JPG · PNG · WEBP</span>
             <span class="tag">Maks <b id="maxMB">10</b>MB / foto</span>
           </div>
@@ -909,7 +976,7 @@ h1{font-size:clamp(36px,5vw,58px)}
         <div class="drop-slim-row" id="dropSlim" style="display:none">
           <div>
             <div class="drop-t" style="font-size:14.5px">Tambah foto lagi</div>
-            <div class="drop-s" style="margin:2px 0 0">Tarik ke sini, atau <span id="slimCount">sisa 15 slot</span></div>
+            <div class="drop-s" style="margin:2px 0 0">Tarik ke sini, atau <span id="slimCount">sisa 40 slot</span></div>
           </div>
           <button class="btn btn-line" id="pick2" type="button">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
@@ -948,7 +1015,7 @@ h1{font-size:clamp(36px,5vw,58px)}
       <div class="panel-h">
         <h3>Foto Anda</h3>
         <div style="display:flex;align-items:center;gap:10px">
-          <span class="note" id="pCount">0 dari 15</span>
+          <span class="note" id="pCount">0 dari 40</span>
           <button class="btn btn-quiet" id="clearAll" type="button">Hapus semua</button>
         </div>
       </div>
@@ -963,13 +1030,13 @@ h1{font-size:clamp(36px,5vw,58px)}
   <section class="step" data-s="2">
     <div class="head anim">
       <div class="eyebrow">Langkah 2</div>
-      <h1>Berapa foto yang masuk album?</h1>
-      <p class="sub">Pilih jumlah foto yang akan dicetak. Foto diambil sesuai urutan yang Anda susun di langkah sebelumnya.</p>
+      <h1>Pilih ketebalan photobook</h1>
+      <p class="sub">Setiap halaman memuat satu foto. Satu lembar terdiri dari dua halaman foto.</p>
     </div>
     <div class="shell anim">
       <div>
         <div class="panel">
-          <div class="panel-h"><h3>Jumlah foto</h3><span class="note" id="cntNote"></span></div>
+          <div class="panel-h"><h3>Paket album</h3><span class="note" id="cntNote"></span></div>
           <div class="chips" id="chips"></div>
         </div>
       </div>
@@ -1000,6 +1067,29 @@ h1{font-size:clamp(36px,5vw,58px)}
       <p class="sub" id="mSub">Setiap preview di bawah sudah memakai foto Anda sendiri, jadi Anda tahu persis hasilnya.</p>
     </div>
     <div class="mgrid anim" id="mgrid"></div>
+    <div class="panel copy-studio anim" id="copyStudio">
+      <div class="copy-intro">
+        <div class="eyebrow">Personalize your story</div>
+        <h2>Tulis cerita di dalam foto</h2>
+        <p>Gunakan ide dari kami atau edit setiap kalimat supaya terasa benar-benar milik Anda.</p>
+        <button class="btn btn-primary" id="generateCopy" type="button">Generate copywriting</button>
+      </div>
+      <div class="copy-fields">
+        <div class="f">
+          <label for="copyTitle">Judul cover</label>
+          <input id="copyTitle" maxlength="48" placeholder="The days we keep">
+        </div>
+        <div class="f">
+          <label for="copySubtitle">Subjudul</label>
+          <input id="copySubtitle" maxlength="80" placeholder="Our little story · 2026">
+        </div>
+        <div class="f wide">
+          <label for="copyCaption">Copy pada halaman</label>
+          <textarea id="copyCaption" maxlength="160" placeholder="A short note for the moments worth remembering."></textarea>
+        </div>
+        <p class="copy-hint">Semua teks bisa diedit kapan saja dan langsung muncul pada pratinjau.</p>
+      </div>
+    </div>
   </section>
 
   <!-- ══════════ 5 · PREVIEW ══════════ -->
@@ -1350,11 +1440,12 @@ const TPL = {
   ]
 };
 
-const CELLS = { classic:1, duo:2, magazine:3, quad:4, collage:5, bleed:1 };
+/* Satu halaman selalu memuat satu foto; satu lembar berisi dua halaman. */
+const CELLS = { classic:1, duo:1, magazine:1, quad:1, collage:1, bleed:1 };
 
 const STEPS = [
   { cap:'Foto',      title:'Unggah Foto'        },
-  { cap:'Jumlah',    title:'Jumlah Foto'        },
+  { cap:'Paket',     title:'Paket Album'        },
   { cap:'Jenis',     title:'Jenis Album'        },
   { cap:'Template',  title:'Template Desain'    },
   { cap:'Pratinjau', title:'Pratinjau Album'    },
@@ -1365,7 +1456,7 @@ const STEPS = [
 ];
 
 let PRICING = {
-  limits:{ maxPhotos:15, maxFileSizeMB:10, maxCopies:10 },
+  limits:{ minPhotos:10, maxPhotos:40, maxFileSizeMB:4, maxCopies:10 },
   sizes:[
     { code:'A5', label:'A5', description:'14.8 × 21 cm — ringkas & mudah dibawa', prices:{ softcover:150000, hardcover:200000 } },
     { code:'A4', label:'A4', description:'21 × 29.7 cm — ukuran paling populer',  prices:{ softcover:200000, hardcover:280000 } },
@@ -1402,7 +1493,8 @@ const S = {
   print:{ size:'A4', cover:'hardcover', paper:'matte', copies:1 },
   courier:null,
   view:0,
-  order:null
+  order:null,
+  copy:{ title:'The days we keep', subtitle:'Our little story · 2026', caption:'A small moment, beautifully kept.' }
 };
 
 let tmpSeq = 0;
@@ -1453,20 +1545,34 @@ function renderRail(){
   $('#miniBar').style.width = Math.round(S.step / 9 * 100) + '%';
 }
 
-function go(n){
+function go(n, shouldScroll){
   S.step = n;
   $$('.step').forEach((el) => el.classList.toggle('on', Number(el.dataset.s) === n));
   renderRail();
   renderActions();
 
   if (n === 2){ renderChips(); renderPickPreview(); }
-  if (n === 4) renderTemplates();
+  if (n === 4){ renderTemplates(); renderCopy(); }
   if (n === 5){ S.view = 0; renderBook(); }
   if (n === 6){ renderPrint(); renderSide('#sideCard6'); }
   if (n === 7){ renderCouriers(); renderSide('#sideCard7'); }
   if (n === 8) renderSummary();
 
-  window.scrollTo({ top:0, behavior:'smooth' });
+  if (shouldScroll !== false){
+    const target = document.querySelector('.step[data-s="' + n + '"]');
+    if (target) target.scrollIntoView({ block:'start', behavior:'smooth' });
+  }
+}
+
+function initStoryFlow(){
+  if (!('IntersectionObserver' in window)) return;
+  const observer = new IntersectionObserver((entries) => {
+    const visible = entries.filter((entry) => entry.isIntersecting).sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+    if (!visible || visible.intersectionRatio < .42) return;
+    const step = Number(visible.target.dataset.s);
+    if (step && step !== S.step) go(step, false);
+  }, { threshold:[.42,.6,.8], rootMargin:'-110px 0px -18% 0px' });
+  $$('.step').forEach((section) => observer.observe(section));
 }
 
 function renderActions(){
@@ -1478,7 +1584,7 @@ function renderActions(){
   const t = totals();
   const hints = {
     1: S.photos.length ? S.photos.length + ' foto siap dipakai' : 'Belum ada foto',
-    2: S.count ? S.count + ' foto dipilih' : 'Pilih jumlah foto',
+    2: S.count ? (S.count === 20 ? 'Paket Tipis' : 'Paket Tebal') + ' · ' + S.count + ' foto' : 'Pilih paket album',
     3: S.type ? S.type.name : 'Belum dipilih',
     4: S.tpl ? S.tpl.name : 'Belum dipilih',
     5: S.tpl ? S.tpl.name + ' · ' + S.count + ' foto' : '',
@@ -1582,8 +1688,8 @@ function send(list){
 
 function syncCount(){
   const n = S.photos.length;
-  if (!S.countTouched || S.count > n) S.count = n;
-  if (S.count < 1 && n > 0) S.count = n;
+  if (!S.countTouched) S.count = 0;
+  if (n === 0){ S.count = 0; S.countTouched = false; }
 }
 
 function renderPhotos(){
@@ -1706,12 +1812,19 @@ function clearAll(){
 
 function renderChips(){
   const total = S.photos.length;
-  let html = '';
-  for (let i = 1; i <= PRICING.limits.maxPhotos; i++){
-    html += '<button type="button" class="chip' + (S.count === i ? ' on' : '') + '" data-n="' + i + '"' +
-            (i > total ? ' disabled' : '') + '>' + i + '</button>';
-  }
-  $('#chips').innerHTML = html;
+  const packages = [
+    { count:20, sheets:10, name:'Tipis', note:'Ringkas untuk cerita pilihan' },
+    { count:40, sheets:20, name:'Tebal', note:'Lebih lengkap untuk banyak momen' }
+  ];
+  $('#chips').innerHTML = packages.map((pack) =>
+    '<button type="button" class="chip package-card' + (S.count === pack.count ? ' on' : '') + '" data-n="' + pack.count + '">' +
+      '<span class="package-book"><i></i><i></i><i></i></span>' +
+      '<span class="package-name">Paket ' + pack.name + '</span>' +
+      '<strong>' + pack.sheets + ' lembar</strong>' +
+      '<span>' + pack.count + ' halaman · ' + pack.count + ' foto</span>' +
+      '<small>' + pack.note + '</small>' +
+    '</button>'
+  ).join('');
   $('#chips').querySelectorAll('.chip').forEach((c) =>
     c.addEventListener('click', () => {
       S.count = Number(c.dataset.n);
@@ -1721,8 +1834,7 @@ function renderChips(){
       renderActions();
     }));
 
-  const per = CELLS[S.tpl ? S.tpl.layout : 'classic'];
-  $('#cntNote').textContent = total + ' foto tersedia · ± ' + Math.max(1, Math.ceil(S.count / per)) + ' halaman isi';
+  $('#cntNote').textContent = total + ' foto sudah diunggah';
 }
 
 function renderPickPreview(){
@@ -1766,7 +1878,10 @@ function layHtml(layout, photos){
       ? '<div class="cel"><img src="' + esc(p.url) + '" alt="" loading="lazy"></div>'
       : '<div class="cel void"></div>';
   }
-  return '<div class="lay lay-' + layout + '">' + html + '</div>';
+  const copy = S.copy && S.copy.caption
+    ? '<span class="page-copy">' + esc(S.copy.caption) + '</span>'
+    : '';
+  return '<div class="lay lay-' + layout + '">' + html + copy + '</div>';
 }
 
 /* ─────────────── Step 4 · Template ─────────────── */
@@ -1806,6 +1921,45 @@ function renderTemplates(){
     }));
 }
 
+const COPY_IDEAS = {
+  pernikahan:['Our forever starts here','Two hearts, one beautiful beginning','Love, laughter, and the promise of always.'],
+  perjalanan:['The days we keep','Postcards from our favorite places','We went away and came home with stories.'],
+  keluarga:['A place we call home','The people who make life feel full','Ordinary days, held close forever.'],
+  ulangtahun:['Another trip around the sun','A year fuller, brighter, and kinder','Here is to every wish that found its way home.'],
+  wisuda:['The beginning of everything','One chapter ends, another unfolds','For every late night that led to this moment.'],
+  anniversary:['Still choosing you','Our story, year after year','The best part has always been doing life together.'],
+  bayi:['Hello, little love','The smallest feet leave the biggest prints','Our world became softer the day you arrived.'],
+  persahabatan:['Full of joy','Good days are better together','For the laughter we never want to forget.'],
+  sekolah:['The days that made us','Lessons, laughter, and everything between','We grew up somewhere between these pages.'],
+  olahraga:['Built for the moment','Every finish line starts with courage','The work was quiet. The moment was loud.'],
+  alam:['Where we feel alive','Notes from the wild','Somewhere outside, we found our way back.'],
+  potret:['A moment to remember','A study of light and feeling','This is what being here looked like.']
+};
+
+function renderCopy(){
+  $('#copyTitle').value = S.copy.title;
+  $('#copySubtitle').value = S.copy.subtitle;
+  $('#copyCaption').value = S.copy.caption;
+}
+
+function generateCopy(){
+  const ideas = COPY_IDEAS[S.type ? S.type.id : 'potret'] || COPY_IDEAS.potret;
+  S.copy = { title:ideas[0], subtitle:ideas[1], caption:ideas[2] };
+  renderCopy();
+  renderTemplates();
+  toast('Copywriting baru sudah dibuat. Silakan edit sesuka Anda.', 'success');
+}
+
+function syncCopy(){
+  S.copy = {
+    title:$('#copyTitle').value.trim(),
+    subtitle:$('#copySubtitle').value.trim(),
+    caption:$('#copyCaption').value.trim()
+  };
+  if (S.type) renderTemplates();
+  if (S.tpl && $('#book').children.length) renderBook();
+}
+
 /* ─────────────── Step 5 · Pratinjau album ─────────────── */
 
 function albumPhotos(){ return S.photos.slice(0, S.count); }
@@ -1838,9 +1992,9 @@ function coverHtml(m){
     '<div class="cover' + coverClass + '" style="' + style + '">' + photoHtml +
       '<div class="cover-copy">' +
         '<div class="cover-kick">The Innovators Studio</div>' +
-        '<div class="cover-t">' + (m.layout === 'magazine' ? 'FULL OF JOY' : 'Album ' + esc(S.type ? S.type.name : '')) + '</div>' +
+        '<div class="cover-t">' + esc(S.copy.title || ('Album ' + (S.type ? S.type.name : ''))) + '</div>' +
         '<div class="cover-rule"></div>' +
-        '<div class="cover-s">' + esc(S.tpl.name) + ' · ' + m.photos.length + ' Foto</div>' +
+        '<div class="cover-s">' + esc(S.copy.subtitle || (S.tpl.name + ' · ' + m.photos.length + ' Foto')) + '</div>' +
       '</div>' +
     '</div></div>';
 }
@@ -2110,9 +2264,9 @@ function clearErrs(){
 /* ─────────────── Validasi ─────────────── */
 
 function valid(step){
-  if (step === 1 && !S.photos.length){ toast('Unggah minimal satu foto untuk melanjutkan.', 'error'); return false; }
+  if (step === 1 && S.photos.length < 10){ toast('Unggah minimal 10 foto untuk melanjutkan.', 'error'); return false; }
   if (step === 1 && S.photos.some((p) => p.temp)){ toast('Tunggu proses unggah selesai.', 'info'); return false; }
-  if (step === 2 && S.count < 1){ toast('Pilih dulu jumlah foto yang masuk album.', 'error'); return false; }
+  if (step === 2 && ![20,40].includes(S.count)){ toast('Pilih Paket Tipis atau Paket Tebal.', 'error'); return false; }
   if (step === 3 && !S.type){ toast('Pilih jenis album terlebih dahulu.', 'error'); return false; }
   if (step === 4 && !S.tpl){ toast('Pilih salah satu template desain.', 'error'); return false; }
 
@@ -2163,7 +2317,9 @@ function renderSummary(){
   $('#sumAlbum').innerHTML =
     row('Jenis album', S.type ? S.type.name : '—') +
     row('Template', (S.tpl ? S.tpl.name : '—') + (S.tpl ? ' (' + S.tpl.layout + ')' : '')) +
-    row('Isi album', S.count + ' foto · ' + m.pages + ' halaman') +
+    row('Paket', (S.count === 20 ? 'Tipis · 10 lembar' : 'Tebal · 20 lembar')) +
+    row('Isi album', S.count + ' foto · satu foto per halaman') +
+    row('Judul', S.copy.title || '—') +
     row('Ukuran', size ? size.label : '—') +
     row('Cover', cover ? cover.label : '—') +
     row('Kertas', paper ? paper.label : '—') +
@@ -2189,6 +2345,11 @@ function renderSummary(){
 
 function submit(){
   if (!valid(7)){ go(7); return; }
+  if (S.photos.length < S.count){
+    toast('Paket ini membutuhkan ' + S.count + ' foto. Tambahkan ' + (S.count - S.photos.length) + ' foto lagi.', 'error');
+    go(1);
+    return;
+  }
 
   const f = form();
   const payload = {
@@ -2197,6 +2358,7 @@ function submit(){
     photos:albumPhotos(),
     albumType:S.type.name,
     template:{ id:S.tpl.id, name:S.tpl.name, layout:S.tpl.layout, colors:S.tpl.colors },
+    copywriting:S.copy,
     printOptions:{ size:S.print.size, cover:S.print.cover, paper:S.print.paper, copies:S.print.copies },
     shipping:Object.assign({}, f.shipping, {
       courier:S.courier.code, courierName:S.courier.name, eta:S.courier.eta
@@ -2260,6 +2422,7 @@ function reset(){
   S.courier = null;
   S.view = 0;
   S.order = null;
+  S.copy = { title:'The days we keep', subtitle:'Our little story · 2026', caption:'A small moment, beautifully kept.' };
 
   ['fName','fEmail','fPhone','fIg','fRecipient','fAddress','fCity','fProvince','fPostal']
     .forEach((id) => { $('#' + id).value = ''; });
@@ -2293,6 +2456,8 @@ function bind(){
 
   $('#pay').addEventListener('click', submit);
   $('#again').addEventListener('click', reset);
+  $('#generateCopy').addEventListener('click', generateCopy);
+  ['copyTitle','copySubtitle','copyCaption'].forEach((id) => $('#' + id).addEventListener('input', syncCopy));
 
   $('#copyId').addEventListener('click', () => {
     const id = $('#oidText').textContent;
@@ -2335,6 +2500,8 @@ function loadPricing(){
         papers:   d.papers   || PRICING.papers,
         couriers: d.couriers || PRICING.couriers
       };
+      if (!PRICING.limits.minPhotos) PRICING.limits.minPhotos = 10;
+      $('#minN').textContent  = PRICING.limits.minPhotos;
       $('#maxN').textContent  = PRICING.limits.maxPhotos;
       $('#maxMB').textContent = PRICING.limits.maxFileSizeMB;
     })
@@ -2348,7 +2515,8 @@ function init(){
   renderPhotos();
   renderPrint();
   renderCouriers();
-  go(1);
+  go(1, false);
+  initStoryFlow();
   loadPricing().then(() => { renderPhotos(); renderPrint(); renderCouriers(); });
 }
 

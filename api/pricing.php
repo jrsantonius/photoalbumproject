@@ -50,6 +50,7 @@ response_json([
     'success'  => true,
     'currency' => 'IDR',
     'limits'   => [
+        'minPhotos'     => 10,
         'maxPhotos'     => MAX_PHOTOS,
         'maxFileSizeMB' => MAX_FILE_SIZE_MB,
         'allowedFormats' => ['jpg', 'png', 'webp'],

@@ -12,7 +12,7 @@ export async function POST(request) {
     if (!customer.name || !customer.email || !customer.phone) errors.push('Data pemesan belum lengkap.');
     if (!/^\S+@\S+\.\S+$/.test(customer.email || '')) errors.push('Email tidak valid.');
     if (!shipping.recipient || !shipping.address || !shipping.city || !shipping.province || !shipping.postalCode) errors.push('Alamat pengiriman belum lengkap.');
-    if (!photos.length || photos.length > limits.maxPhotos) errors.push('Jumlah foto tidak valid.');
+    if (![20, 40].includes(photos.length)) errors.push('Paket album harus berisi tepat 20 atau 40 foto.');
     if (!body.albumType || !body.template?.id) errors.push('Jenis album atau template belum dipilih.');
     if (!sizes.some((x) => x.code === printOptions.size)) errors.push('Ukuran album tidak valid.');
     if (!covers.some((x) => x.code === printOptions.cover)) errors.push('Cover tidak valid.');

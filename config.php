@@ -77,7 +77,7 @@ function env(string $key, string $default = ''): string
 
 define('MAYAR_API_KEY',    env('MAYAR_API_KEY', ''));
 define('MAYAR_ENV',        env('MAYAR_ENV', 'sandbox'));
-define('MAX_PHOTOS',       (int) env('MAX_PHOTOS', '15'));
+define('MAX_PHOTOS',       (int) env('MAX_PHOTOS', '40'));
 define('MAX_FILE_SIZE_MB', (int) env('MAX_FILE_SIZE_MB', '10'));
 define('MAX_FILE_SIZE',    MAX_FILE_SIZE_MB * 1024 * 1024);
 define('UPLOADS_DIR',      __DIR__ . '/uploads');

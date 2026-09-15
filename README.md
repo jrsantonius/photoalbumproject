@@ -28,8 +28,12 @@ Salin `.env.example` menjadi `.env` lalu isi:
 
 | Key | Keterangan |
 |---|---|
-| `MAX_PHOTOS` | Batas foto per album (default 15) |
+| `MAX_PHOTOS` | Batas foto per album (default 40) |
 | `MAX_FILE_SIZE_MB` | Batas ukuran per foto (4MB di Vercel) |
+
+Alur album memakai dua paket: Tipis (10 lembar/20 halaman/20 foto) dan Tebal
+(20 lembar/40 halaman/40 foto). Pengguna dapat mulai setelah mengunggah minimum
+10 foto, lalu melengkapinya sesuai paket sebelum membuat pesanan.
 
 Pembayaran online dinonaktifkan sementara. Pesanan dicatat dan ditindaklanjuti manual melalui WhatsApp.
 
