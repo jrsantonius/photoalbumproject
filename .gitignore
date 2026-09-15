@@ -1,0 +1,15 @@
+.DS_Store
+.env
+
+# Data runtime dan unggahan pengguna
+uploads/*
+!uploads/.htaccess
+orders/*
+!orders/.htaccess
+
+# Materi referensi dan dokumen internal
+PREVIEW PHOTOBOOK/
+SPK_ATLAS_x_TIS_FINAL_5_TAHUN.docx
+SPK_ATLAS_x_TIS_FINAL_5_TAHUN_FIX.docx
+SPK_ATLAS_x_TIS_FINAL_5_TAHUN.pdf
+Codex Image Aug 27, 2026, 10_15_52 PM.png

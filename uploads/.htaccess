@@ -1,0 +1,10 @@
+# Folder ini hanya menyimpan gambar milik pengguna — jangan pernah eksekusi skrip di sini.
+# Catatan: php_flag hanya valid pada mod_php, karena itu dibungkus IfModule agar
+# tidak memicu error 500 di hosting yang memakai PHP-FPM/CGI.
+<IfModule mod_php.c>
+  php_flag engine off
+</IfModule>
+<IfModule mod_mime.c>
+  RemoveHandler .php .phtml .php3 .php4 .php5 .php7 .php8
+  AddType text/plain .php .phtml .php3 .php4 .php5 .php7 .php8
+</IfModule>
