@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Innovators Studio — Album Foto Cetak Custom</title>
+<title>The Innovators Studio | Album Foto Cetak Custom</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -914,6 +914,83 @@ html{scroll-snap-type:y proximity;scroll-padding-top:132px}
   .copy-fields{grid-template-columns:1fr}
   .actions{bottom:8px}
 }
+
+/* Modern studio direction: white canvas, editorial type, restrained terracotta accent. */
+:root{
+  --brand:#A63C2E;
+  --brand-dark:#7F2B21;
+  --brand-soft:#F8ECE8;
+  --brand-line:#E6C1B9;
+  --ok:#236B53;
+  --ok-soft:#E9F3EF;
+  --ink:#181816;
+  --ink-2:#45443F;
+  --muted:#66645E;
+  --faint:#85827A;
+  --canvas:#FFFFFF;
+  --line:#E8E5DE;
+  --line-2:#D5D0C6;
+}
+body{background:#fff}
+.header,.rail-wrap{background:rgba(255,255,255,.94)}
+.mark{background:var(--ink);border-radius:2px;box-shadow:none}
+.header-right{font-size:12px;font-weight:700;color:var(--ink-2)}
+.service-note{display:flex;align-items:center;gap:8px}
+.service-note::before{content:'';width:18px;height:1px;background:var(--brand)}
+.rail{padding-block:10px}
+.node{appearance:none;border:0;background:transparent;min-width:44px;min-height:44px;cursor:pointer}
+.node:disabled{cursor:not-allowed;opacity:.42}
+.node:focus-visible{outline:3px solid #C76859;outline-offset:3px}
+.node.locked .dot{background:#fff;color:var(--faint)}
+.step[hidden]{display:none!important}
+.step{
+  opacity:1;transform:none;border-bottom:0;
+  min-height:calc(100svh - 126px);padding:72px 0 112px;
+}
+.step.on{opacity:1}
+.step:not(.on){opacity:.86}
+.eyebrow{color:var(--brand);border-color:var(--brand)}
+.panel,.drop,.tcard,.mcard,.ocard,.cour,.chip{background:#fff}
+.inspo-board{background:#F2EEE7;border-color:#DDD5C8}
+.actions{background:rgba(255,255,255,.96);box-shadow:0 14px 38px rgba(35,31,25,.13)}
+.btn{min-height:44px}
+.btn-primary{background:var(--brand)}
+.btn-primary:hover{background:var(--brand-dark)}
+.btn-primary:focus-visible,.btn-line:focus-visible{outline:3px solid #C76859;outline-offset:3px}
+.btn:disabled{opacity:.48;background:#D8D4CC;color:#68655F;border-color:#D8D4CC}
+.tcard-ico{display:none}
+.tcard{min-height:92px;justify-content:flex-end;padding:18px}
+.tcard-n{font-family:Georgia,'Times New Roman',serif;font-size:18px}
+.flow-note{font-size:11.5px;color:var(--muted);font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px}
+.flow-note::before{content:'';width:16px;height:1px;background:var(--brand)}
+.minimum-meter{
+  margin-top:22px;padding:18px;border-top:1px solid var(--line);
+  text-align:left;background:#FCFBF9;
+}
+.minimum-meter-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px}
+.minimum-meter-head span{font-size:12px;font-weight:700;color:var(--ink-2)}
+.minimum-meter-head strong{font-family:Georgia,'Times New Roman',serif;font-size:17px;font-weight:400;color:var(--brand)}
+.minimum-slots{display:grid;grid-template-columns:repeat(10,1fr);gap:5px;margin:12px 0 10px}
+.minimum-slot{height:7px;background:#DDD9D1;transition:background .25s var(--ease),transform .25s var(--ease)}
+.minimum-slot.filled{background:var(--brand);transform:scaleY(1.2)}
+.minimum-hint{font-size:12px;color:var(--muted);line-height:1.45}
+.minimum-meter.complete .minimum-meter-head strong,.minimum-meter.complete .minimum-hint{color:var(--ok)}
+.minimum-meter.complete .minimum-slot.filled{background:var(--ok)}
+
+@media (max-width:820px){
+  .step{min-height:auto;padding:54px 0 90px}
+  .rail{display:none}
+  .rail-mini{display:block}
+  .header-right{display:none}
+}
+@media (max-width:600px){
+  .wrap{padding-inline:18px;padding-top:0}
+  .step{padding:42px 0 88px}
+  .actions-mid{display:none}
+  .actions-in{justify-content:space-between}
+  .actions .btn{flex:1}
+  .inspo-board{padding:16px 10px 22px}
+}
 </style>
 </head>
 <body>
@@ -926,7 +1003,7 @@ html{scroll-snap-type:y proximity;scroll-padding-top:132px}
       <span>Album Foto Cetak Custom</span>
     </div>
     <div class="header-right">
-      <div class="pill"><i></i> Cetak 3–5 hari kerja</div>
+      <div class="service-note">Album cetak custom</div>
     </div>
   </div>
 </header>
@@ -951,7 +1028,7 @@ html{scroll-snap-type:y proximity;scroll-padding-top:132px}
         <div class="head">
           <div class="eyebrow">Langkah 1 · Mulai cerita Anda</div>
           <h1>Kenangan yang layak disimpan selamanya.</h1>
-          <p class="sub">Pilih momen favorit Anda dan kami akan menyusunnya menjadi photobook editorial yang personal. Foto pertama akan menjadi sampul album.</p>
+          <p class="sub">Unggah minimal 10 foto untuk membuka langkah berikutnya. Foto pertama akan menjadi sampul album dan urutannya masih bisa Anda atur.</p>
         </div>
 
         <div class="drop" id="drop">
@@ -982,6 +1059,14 @@ html{scroll-snap-type:y proximity;scroll-padding-top:132px}
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             Pilih Foto
           </button>
+        </div>
+        <div class="minimum-meter" id="minimumMeter" role="status" aria-live="polite">
+          <div class="minimum-meter-head">
+            <span>Slot minimum untuk lanjut</span>
+            <strong id="minimumCount">0 / 10 foto</strong>
+          </div>
+          <div class="minimum-slots" id="minimumSlots" aria-hidden="true"></div>
+          <p class="minimum-hint" id="minimumHint">Isi 10 slot foto agar tombol Lanjut aktif.</p>
         </div>
       </div>
       </div>
@@ -1123,10 +1208,10 @@ html{scroll-snap-type:y proximity;scroll-padding-top:132px}
       </div>
 
       <div class="facts">
-        <div class="fact"><div class="fact-k">Jenis Album</div><div class="fact-v" id="fType">—</div></div>
-        <div class="fact"><div class="fact-k">Template</div><div class="fact-v" id="fTpl">—</div></div>
-        <div class="fact"><div class="fact-k">Total Foto</div><div class="fact-v" id="fN">—</div></div>
-        <div class="fact"><div class="fact-k">Halaman Isi</div><div class="fact-v" id="fPages">—</div></div>
+        <div class="fact"><div class="fact-k">Jenis Album</div><div class="fact-v" id="fType">Belum dipilih</div></div>
+        <div class="fact"><div class="fact-k">Template</div><div class="fact-v" id="fTpl">Belum dipilih</div></div>
+        <div class="fact"><div class="fact-k">Total Foto</div><div class="fact-v" id="fN">Belum dipilih</div></div>
+        <div class="fact"><div class="fact-k">Halaman Isi</div><div class="fact-v" id="fPages">Belum dipilih</div></div>
       </div>
     </div>
   </section>
@@ -1331,7 +1416,7 @@ html{scroll-snap-type:y proximity;scroll-padding-top:132px}
   </div>
 </div>
 
-<div class="lb" id="lb">
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Pratinjau foto">
   <div class="lb-top">
     <div class="lb-cap"><span id="lbT"></span><small id="lbS"></small></div>
     <button class="lb-x" id="lbX" type="button" aria-label="Tutup">
@@ -1347,9 +1432,9 @@ html{scroll-snap-type:y proximity;scroll-padding-top:132px}
   </button>
 </div>
 
-<div class="toasts" id="toasts"></div>
+<div class="toasts" id="toasts" role="status" aria-live="polite" aria-atomic="true"></div>
 
-<div class="loader" id="loader">
+<div class="loader" id="loader" role="status" aria-live="polite" aria-label="Sedang memproses">
   <div class="spin"></div>
   <b id="loaderText">Memproses…</b>
 </div>
@@ -1363,18 +1448,18 @@ html{scroll-snap-type:y proximity;scroll-padding-top:132px}
 /* ─────────────── Data ─────────────── */
 
 const TYPES = [
-  { id:'pernikahan',   name:'Pernikahan',   icon:'💍' },
-  { id:'perjalanan',   name:'Perjalanan',   icon:'✈️' },
-  { id:'keluarga',     name:'Keluarga',     icon:'👨‍👩‍👧' },
-  { id:'ulangtahun',   name:'Ulang Tahun',  icon:'🎂' },
-  { id:'wisuda',       name:'Wisuda',       icon:'🎓' },
-  { id:'anniversary',  name:'Anniversary',  icon:'💖' },
-  { id:'bayi',         name:'Bayi/Newborn', icon:'👶' },
-  { id:'persahabatan', name:'Persahabatan', icon:'🤝' },
-  { id:'sekolah',      name:'Sekolah',      icon:'🏫' },
-  { id:'olahraga',     name:'Olahraga',     icon:'⚽' },
-  { id:'alam',         name:'Alam/Outdoor', icon:'🏞️' },
-  { id:'potret',       name:'Potret',       icon:'📷' }
+  { id:'pernikahan',   name:'Pernikahan' },
+  { id:'perjalanan',   name:'Perjalanan' },
+  { id:'keluarga',     name:'Keluarga' },
+  { id:'ulangtahun',   name:'Ulang Tahun' },
+  { id:'wisuda',       name:'Wisuda' },
+  { id:'anniversary',  name:'Anniversary' },
+  { id:'bayi',         name:'Bayi/Newborn' },
+  { id:'persahabatan', name:'Persahabatan' },
+  { id:'sekolah',      name:'Sekolah' },
+  { id:'olahraga',     name:'Olahraga' },
+  { id:'alam',         name:'Alam/Outdoor' },
+  { id:'potret',       name:'Potret' }
 ];
 
 const TPL = {
@@ -1458,9 +1543,9 @@ const STEPS = [
 let PRICING = {
   limits:{ minPhotos:10, maxPhotos:40, maxFileSizeMB:4, maxCopies:10 },
   sizes:[
-    { code:'A5', label:'A5', description:'14.8 × 21 cm — ringkas & mudah dibawa', prices:{ softcover:150000, hardcover:200000 } },
-    { code:'A4', label:'A4', description:'21 × 29.7 cm — ukuran paling populer',  prices:{ softcover:200000, hardcover:280000 } },
-    { code:'A3', label:'A3', description:'29.7 × 42 cm — tampilan besar & megah', prices:{ softcover:300000, hardcover:400000 } }
+    { code:'A5', label:'A5', description:'14.8 × 21 cm, ringkas dan mudah dibawa', prices:{ softcover:150000, hardcover:200000 } },
+    { code:'A4', label:'A4', description:'21 × 29.7 cm, ukuran paling populer',  prices:{ softcover:200000, hardcover:280000 } },
+    { code:'A3', label:'A3', description:'29.7 × 42 cm, tampilan besar dan megah', prices:{ softcover:300000, hardcover:400000 } }
   ],
   covers:[
     { code:'softcover', label:'Softcover', description:'Sampul lentur, laminasi doff' },
@@ -1472,9 +1557,9 @@ let PRICING = {
     { code:'satin',  label:'Satin',  description:'Semi-kilap, kesan premium',   surcharge:15000 }
   ],
   couriers:[
-    { code:'jnt',     name:'J&T Express',    cost:12000, eta:'2–3 hari' },
-    { code:'jne_reg', name:'JNE Regular',    cost:15000, eta:'3–5 hari' },
-    { code:'sicepat', name:'SiCepat',        cost:13000, eta:'2–3 hari' },
+    { code:'jnt',     name:'J&T Express',    cost:12000, eta:'2 sampai 3 hari' },
+    { code:'jne_reg', name:'JNE Regular',    cost:15000, eta:'3 sampai 5 hari' },
+    { code:'sicepat', name:'SiCepat',        cost:13000, eta:'2 sampai 3 hari' },
     { code:'jne_yes', name:'JNE YES',        cost:25000, eta:'Esok hari tiba' },
     { code:'gosend',  name:'GoSend Instant', cost:20000, eta:'Hari ini (Jabodetabek)' }
   ]
@@ -1484,6 +1569,7 @@ let PRICING = {
 
 const S = {
   step:1,
+  unlocked:1,
   sessionId:null,
   photos:[],
   count:0,
@@ -1532,20 +1618,24 @@ function idle(){ $('#loader').classList.remove('on'); }
 function renderRail(){
   let html = '';
   for (let i = 1; i <= 9; i++){
-    if (i > 1) html += '<div class="seg' + (i <= S.step ? ' on' : '') + '"></div>';
-    const cls = i < S.step ? 'done' : (i === S.step ? 'active' : '');
+    if (i > 1) html += '<div class="seg' + (i <= S.unlocked ? ' on' : '') + '"></div>';
+    const locked = i > S.unlocked;
+    const cls = (i < S.step ? 'done ' : (i === S.step ? 'active ' : '')) + (locked ? 'locked' : '');
     const inner = i < S.step
       ? '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>'
       : i;
-    html += '<div class="node ' + cls + '"><div class="dot">' + inner + '</div><div class="cap">' + STEPS[i-1].cap + '</div></div>';
+    html += '<button type="button" class="node ' + cls + '" data-step="' + i + '"' + (locked ? ' disabled' : '') + ' aria-label="Buka langkah ' + i + ': ' + STEPS[i-1].title + '"><span class="dot">' + inner + '</span><span class="cap">' + STEPS[i-1].cap + '</span></button>';
   }
   $('#rail').innerHTML = html;
+  $('#rail').querySelectorAll('[data-step]:not(:disabled)').forEach((button) =>
+    button.addEventListener('click', () => go(Number(button.dataset.step))));
   $('#miniLabel').textContent = STEPS[S.step-1].title;
   $('#miniCount').textContent = S.step + ' / 9';
-  $('#miniBar').style.width = Math.round(S.step / 9 * 100) + '%';
+  $('#miniBar').style.width = Math.round(S.unlocked / 9 * 100) + '%';
 }
 
 function go(n, shouldScroll){
+  if (n > S.unlocked) return;
   S.step = n;
   $$('.step').forEach((el) => el.classList.toggle('on', Number(el.dataset.s) === n));
   renderRail();
@@ -1564,6 +1654,34 @@ function go(n, shouldScroll){
   }
 }
 
+function stepReady(step){
+  if (step === 1) return S.photos.length >= PRICING.limits.minPhotos && !S.photos.some((photo) => photo.temp);
+  if (step === 2) return [20,40].includes(S.count) && S.photos.length >= S.count;
+  if (step === 3) return !!S.type;
+  if (step === 4) return !!S.tpl;
+  if (step === 5 || step === 6) return true;
+  if (step === 7){
+    const data = form();
+    return !!(
+      data.customer.name &&
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.customer.email) &&
+      /^[0-9+\-\s()]{8,20}$/.test(data.customer.phone) &&
+      data.shipping.recipient && data.shipping.address && data.shipping.city &&
+      data.shipping.province && data.shipping.postalCode && S.courier
+    );
+  }
+  return step === 8;
+}
+
+function refreshAccess(){
+  if (S.step < 8 && stepReady(S.step)) S.unlocked = Math.max(S.unlocked, S.step + 1);
+  $$('.step').forEach((section) => {
+    const number = Number(section.dataset.s);
+    section.hidden = number > S.unlocked;
+    section.setAttribute('aria-hidden', number > S.unlocked ? 'true' : 'false');
+  });
+}
+
 function initStoryFlow(){
   if (!('IntersectionObserver' in window)) return;
   const observer = new IntersectionObserver((entries) => {
@@ -1576,15 +1694,21 @@ function initStoryFlow(){
 }
 
 function renderActions(){
+  refreshAccess();
   const bar = $('#actions');
   bar.style.display = S.step === 9 ? 'none' : 'block';
   $('#back').style.visibility = S.step === 1 ? 'hidden' : 'visible';
   $('#next').style.display = S.step === 8 ? 'none' : 'inline-flex';
+  $('#next').disabled = S.step < 8 && !stepReady(S.step);
 
   const t = totals();
   const hints = {
-    1: S.photos.length ? S.photos.length + ' foto siap dipakai' : 'Belum ada foto',
-    2: S.count ? (S.count === 20 ? 'Paket Tipis' : 'Paket Tebal') + ' · ' + S.count + ' foto' : 'Pilih paket album',
+    1: S.photos.length >= PRICING.limits.minPhotos
+      ? S.photos.length + ' foto siap dipakai'
+      : S.photos.length + ' / ' + PRICING.limits.minPhotos + ' foto, tambah ' + (PRICING.limits.minPhotos - S.photos.length) + ' lagi',
+    2: S.count
+      ? (S.photos.length < S.count ? 'Tambahkan ' + (S.count - S.photos.length) + ' foto lagi' : (S.count === 20 ? 'Paket Tipis' : 'Paket Tebal') + ', ' + S.count + ' foto')
+      : 'Pilih paket album',
     3: S.type ? S.type.name : 'Belum dipilih',
     4: S.tpl ? S.tpl.name : 'Belum dipilih',
     5: S.tpl ? S.tpl.name + ' · ' + S.count + ' foto' : '',
@@ -1594,6 +1718,7 @@ function renderActions(){
   };
   $('#aTitle').textContent = STEPS[S.step-1].title;
   $('#aHint').textContent = hints[S.step] || '';
+  renderRail();
 }
 
 /* ─────────────── Step 1 · Upload ─────────────── */
@@ -1704,6 +1829,18 @@ function renderPhotos(){
   $('#drop').classList.toggle('slim', n > 0);
   $('#pCount').textContent = n + ' dari ' + max;
   $('#slimCount').textContent = 'sisa ' + (max - n) + ' slot';
+
+  const minimum = PRICING.limits.minPhotos;
+  const minimumFilled = Math.min(n, minimum);
+  const minimumReady = n >= minimum && !S.photos.some((photo) => photo.temp);
+  $('#minimumCount').textContent = minimumFilled + ' / ' + minimum + ' foto';
+  $('#minimumSlots').innerHTML = Array.from({ length:minimum }, (_, index) =>
+    '<span class="minimum-slot' + (index < minimumFilled ? ' filled' : '') + '"></span>'
+  ).join('');
+  $('#minimumMeter').classList.toggle('complete', minimumReady);
+  $('#minimumHint').textContent = minimumReady
+    ? 'Slot minimum terisi. Anda sudah bisa lanjut ke pilihan paket.'
+    : (n ? 'Tambah ' + (minimum - n) + ' foto lagi agar tombol Lanjut aktif.' : 'Isi ' + minimum + ' slot foto agar tombol Lanjut aktif.');
 
   grid.innerHTML = S.photos.map((p, i) =>
     '<div class="pitem' + (p.temp ? ' busy' : '') + '" draggable="' + (p.temp ? 'false' : 'true') + '" data-i="' + i + '">' +
@@ -1852,7 +1989,6 @@ function renderTypes(){
   g.innerHTML = TYPES.map((t) =>
     '<button type="button" class="tcard' + (S.type && S.type.id === t.id ? ' on' : '') + '" data-id="' + t.id + '">' +
       '<span class="tick"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>' +
-      '<div class="tcard-ico">' + t.icon + '</div>' +
       '<div class="tcard-n">' + esc(t.name) + '</div>' +
     '</button>'
   ).join('');
@@ -2000,7 +2136,7 @@ function coverHtml(m){
 }
 
 function pageHtml(m, index, side){
-  if (index >= m.pages) return '<div class="leaf ' + side + ' void"><span>—</span></div>';
+  if (index >= m.pages) return '<div class="leaf ' + side + ' void"><span>Kosong</span></div>';
   const slice = m.photos.slice(index * m.per, index * m.per + m.per);
   const pad   = m.layout === 'bleed' ? 'padding:0' : '';
   return '<div class="leaf ' + side + '" style="background:' + S.tpl.colors[0] + ';' + pad + '">' +
@@ -2030,7 +2166,7 @@ function renderBook(dir){
   $('#bLabel').textContent = isCover ? 'Sampul album' : 'Lembar ' + S.view + ' dari ' + (m.views.length - 1);
   $('#bSub').textContent   = isCover
     ? (S.type ? S.type.name : '') + ' · ' + S.tpl.name
-    : 'Halaman ' + (view.l + 1) + '–' + (view.r + 1);
+    : 'Halaman ' + (view.l + 1) + ' sampai ' + (view.r + 1);
 
   $('#bPrev').disabled = S.view === 0;
   $('#bNext').disabled = S.view >= m.views.length - 1;
@@ -2065,7 +2201,7 @@ function renderBook(dir){
   const active = $('#thumbs').querySelector('.thumb.on');
   if (active && active.scrollIntoView) active.scrollIntoView({ block:'nearest', inline:'center', behavior:'smooth' });
 
-  $('#fType').textContent  = S.type ? S.type.name : '—';
+  $('#fType').textContent  = S.type ? S.type.name : 'Belum dipilih';
   $('#fTpl').textContent   = S.tpl.name;
   $('#fN').textContent     = m.photos.length + ' foto';
   $('#fPages').textContent = m.pages + ' halaman';
@@ -2199,12 +2335,12 @@ function renderSide(sel){
     '<div class="panel-h"><h3>Ringkasan pesanan</h3></div>' +
     '<div class="side-mini">' +
       '<div class="side-mini-img">' + (first ? '<img src="' + esc(first.url) + '" alt="">' : '') + '</div>' +
-      '<div><div class="side-mini-t">Album ' + esc(S.type ? S.type.name : '—') + '</div>' +
-      '<div class="side-mini-s">' + esc(S.tpl ? S.tpl.name : '—') + ' · ' + S.count + ' foto</div></div>' +
+      '<div><div class="side-mini-t">Album ' + esc(S.type ? S.type.name : 'Belum dipilih') + '</div>' +
+      '<div class="side-mini-s">' + esc(S.tpl ? S.tpl.name : 'Belum dipilih') + ', ' + S.count + ' foto</div></div>' +
     '</div>' +
-    row('Ukuran', size ? size.label : '—') +
-    row('Cover', cover ? cover.label : '—') +
-    row('Kertas', paper ? paper.label : '—') +
+    row('Ukuran', size ? size.label : 'Belum dipilih') +
+    row('Cover', cover ? cover.label : 'Belum dipilih') +
+    row('Kertas', paper ? paper.label : 'Belum dipilih') +
     row('Eksemplar', S.print.copies + ' buku') +
     row('Subtotal', rp(t.sub)) +
     row('Ongkos kirim', S.courier ? rp(t.ship) : 'Belum dipilih') +
@@ -2267,6 +2403,7 @@ function valid(step){
   if (step === 1 && S.photos.length < 10){ toast('Unggah minimal 10 foto untuk melanjutkan.', 'error'); return false; }
   if (step === 1 && S.photos.some((p) => p.temp)){ toast('Tunggu proses unggah selesai.', 'info'); return false; }
   if (step === 2 && ![20,40].includes(S.count)){ toast('Pilih Paket Tipis atau Paket Tebal.', 'error'); return false; }
+  if (step === 2 && S.photos.length < S.count){ toast('Tambahkan ' + (S.count - S.photos.length) + ' foto untuk paket ini.', 'error'); return false; }
   if (step === 3 && !S.type){ toast('Pilih jenis album terlebih dahulu.', 'error'); return false; }
   if (step === 4 && !S.tpl){ toast('Pilih salah satu template desain.', 'error'); return false; }
 
@@ -2315,14 +2452,14 @@ function renderSummary(){
     '<div class="pitem" style="cursor:default;box-shadow:none"><img src="' + esc(p.url) + '" alt=""></div>').join('');
 
   $('#sumAlbum').innerHTML =
-    row('Jenis album', S.type ? S.type.name : '—') +
-    row('Template', (S.tpl ? S.tpl.name : '—') + (S.tpl ? ' (' + S.tpl.layout + ')' : '')) +
+    row('Jenis album', S.type ? S.type.name : 'Belum dipilih') +
+    row('Template', (S.tpl ? S.tpl.name : 'Belum dipilih') + (S.tpl ? ' (' + S.tpl.layout + ')' : '')) +
     row('Paket', (S.count === 20 ? 'Tipis · 10 lembar' : 'Tebal · 20 lembar')) +
     row('Isi album', S.count + ' foto · satu foto per halaman') +
-    row('Judul', S.copy.title || '—') +
-    row('Ukuran', size ? size.label : '—') +
-    row('Cover', cover ? cover.label : '—') +
-    row('Kertas', paper ? paper.label : '—') +
+    row('Judul', S.copy.title || 'Belum diisi') +
+    row('Ukuran', size ? size.label : 'Belum dipilih') +
+    row('Cover', cover ? cover.label : 'Belum dipilih') +
+    row('Kertas', paper ? paper.label : 'Belum dipilih') +
     row('Eksemplar', S.print.copies + ' buku');
 
   $('#sumCust').innerHTML =
@@ -2332,7 +2469,7 @@ function renderSummary(){
     (f.customer.instagram ? row('Instagram', f.customer.instagram) : '') +
     row('Penerima', f.shipping.recipient) +
     row('Alamat', f.shipping.address + ', ' + f.shipping.city + ', ' + f.shipping.province + ' ' + f.shipping.postalCode) +
-    row('Kurir', S.courier ? S.courier.name + ' · ' + S.courier.eta : '—');
+    row('Kurir', S.courier ? S.courier.name + ', ' + S.courier.eta : 'Belum dipilih');
 
   $('#sumPrice').innerHTML =
     row('Harga per eksemplar', rp(t.per)) +
@@ -2381,6 +2518,7 @@ function submit(){
 
       S.order = d;
       renderDone(d);
+      S.unlocked = 9;
       go(9);
       toast('Pesanan ' + d.orderId + ' berhasil dibuat.', 'success');
     })
@@ -2401,11 +2539,11 @@ function renderDone(d){
   else link.style.display = 'none';
 
   $('#doneSum').innerHTML =
-    row('Jenis album', S.type ? S.type.name : '—') +
-    row('Template', S.tpl ? S.tpl.name : '—') +
+    row('Jenis album', S.type ? S.type.name : 'Belum dipilih') +
+    row('Template', S.tpl ? S.tpl.name : 'Belum dipilih') +
     row('Isi album', S.count + ' foto') +
     row('Eksemplar', S.print.copies + ' buku') +
-    row('Kurir', S.courier ? S.courier.name : '—') +
+    row('Kurir', S.courier ? S.courier.name : 'Belum dipilih') +
     row('Total', rp(t.total || totals().total), 'big');
 }
 
@@ -2413,6 +2551,7 @@ function renderDone(d){
 
 function reset(){
   S.sessionId = null;
+  S.unlocked = 1;
   S.photos = [];
   S.count = 0;
   S.countTouched = false;
@@ -2470,7 +2609,10 @@ function bind(){
   $('#lb').addEventListener('click', (e) => { if (e.target === $('#lb')) closeLb(); });
 
   $$('.f input, .f textarea').forEach((el) =>
-    el.addEventListener('input', () => { if (el.classList.contains('bad')) setErr(el.id, ''); }));
+    el.addEventListener('input', () => {
+      if (el.classList.contains('bad')) setErr(el.id, '');
+      renderActions();
+    }));
 
   document.addEventListener('keydown', (e) => {
     if ($('#lb').classList.contains('on')){
